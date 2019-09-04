@@ -1,7 +1,7 @@
-import { Router } from "express";
+const { Router } = require("express");
 
-import SessionController from "./controllers/session/index";
-import MessageController from "./controllers/message/index";
+const SessionController = require("./controllers/session/index");
+const MessageController = require("./controllers/message/index");
 
 const routes = new Router();
 
@@ -11,4 +11,4 @@ routes.post("/sessions", SessionController.store);
 routes.get("/messages", MessageController.index);
 routes.post("/messages", MessageController.store);
 
-export default routes;
+module.exports = routes;

@@ -1,5 +1,5 @@
-import Session from "../../schemas/Session";
-import { storeValidation } from "./validation";
+const Session = require("../../schemas/Session");
+const { storeValidation } = require("./validation");
 
 class SessionController {
     async index(_, res) {
@@ -24,4 +24,4 @@ class SessionController {
     }
 }
 
-export default new SessionController();
+module.exports = new SessionController();

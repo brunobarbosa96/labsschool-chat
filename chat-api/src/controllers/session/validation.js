@@ -1,11 +1,11 @@
-import * as Yup from "yup";
+const Yup = require("yup");
 
-export const storeValidation = Yup.object().shape({
+const storeValidation = Yup.object().shape({
     name: Yup.string()
         .trim()
         .required()
 });
 
-export default {
+module.exports = {
     store: storeValidation
 };

@@ -1,6 +1,6 @@
-import * as Yup from "yup";
+const Yup = require("yup");
 
-export const storeValidation = Yup.object().shape({
+const storeValidation = Yup.object().shape({
     sessionId: Yup.string()
         .trim()
         .required(),
@@ -9,6 +9,6 @@ export const storeValidation = Yup.object().shape({
         .required()
 });
 
-export default {
+module.exports = {
     store: storeValidation
 };

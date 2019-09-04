@@ -1,7 +1,7 @@
-import Message from "../../schemas/Message";
-import { storeValidation } from "./validation";
-import Session from "../../schemas/Session";
-import mongoose from "mongoose";
+const Message = require("../../schemas/Message");
+const { storeValidation } = require("./validation");
+const Session = require("../../schemas/Session");
+const mongoose = require("mongoose");
 
 class MessageController {
     async index(_, res) {
@@ -42,4 +42,4 @@ class MessageController {
     }
 }
 
-export default new MessageController();
+module.exports = new MessageController();

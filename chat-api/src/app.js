@@ -1,16 +1,16 @@
-import "dotenv/config";
+require("dotenv/config");
 
-import express from "express";
-import Youch from "youch";
-import cors from "cors";
-import http from "http";
-import io from "socket.io";
+const express = require("express");
+const Youch = require("youch");
+const cors = require("cors");
+const http = require("http");
+const io = require("socket.io");
 
-import "express-async-errors";
+require("express-async-errors");
 
-import routes from "./routes";
+const routes = require("./routes");
 
-import "./database";
+require("./database");
 
 class App {
     constructor() {
@@ -49,4 +49,4 @@ class App {
     }
 }
 
-export default new App().httpServer;
+module.exports = new App().httpServer;
