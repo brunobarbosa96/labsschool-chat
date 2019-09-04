@@ -6,6 +6,10 @@ const MessageSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true
         },
+        userName: {
+            type: String,
+            required: true
+        },
         content: {
             type: String,
             required: true

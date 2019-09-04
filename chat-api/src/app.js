@@ -2,6 +2,10 @@ import "dotenv/config";
 
 import express from "express";
 import Youch from "youch";
+import cors from "cors";
+import http from "http";
+import io from "socket.io";
+
 import "express-async-errors";
 
 import routes from "./routes";
@@ -11,6 +15,8 @@ import "./database";
 class App {
     constructor() {
         this.server = express();
+        this.httpServer = http.Server(this.server);
+        this.socket = io(this.httpServer);
 
         this.middlewares();
         this.routes();
@@ -19,6 +25,12 @@ class App {
 
     middlewares() {
         this.server.use(express.json());
+        this.server.use(cors());
+        this.server.use((req, res, next) => {
+            req.socket = this.socket;
+
+            next();
+        });
     }
 
     routes() {
@@ -37,4 +49,4 @@ class App {
     }
 }
 
-export default new App().server;
+export default new App().httpServer;

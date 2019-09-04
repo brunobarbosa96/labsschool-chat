@@ -9,17 +9,6 @@ class MessageController {
             .sort({ createdAt: "desc" })
             .limit(30);
 
-        messages = await messages.map(async message => {
-            const { name: userName } = await Session.findOne({
-                _id: message.sessionId
-            });
-
-            return {
-                ...message,
-                userName
-            };
-        });
-        console.log(messages);
         return res.json(messages);
     }
 
@@ -33,19 +22,21 @@ class MessageController {
         if (!mongoose.Types.ObjectId.isValid(sessionId))
             return res.status(400).json({ error: "SessionId is not valid." });
 
-        const sessionExists = await Session.findOne({
-            _id: sessionId
-        });
+        const sessionExists = await Session.findById(sessionId);
 
         if (!sessionExists)
             return res.status(404).json({
                 error: "Session does't exist."
             });
 
+        const { name: userName } = sessionExists;
         const message = await Message.create({
-            sessionId: sessionId,
-            content: content
+            sessionId,
+            content,
+            userName
         });
+
+        req.socket.emit("newMessage", message);
 
         return res.json(message);
     }
