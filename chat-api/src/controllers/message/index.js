@@ -1,5 +1,5 @@
 const Message = require("../../schemas/Message");
-const { storeValidation } = require("./validation");
+const storeValidation = require("./validation");
 const Session = require("../../schemas/Session");
 const mongoose = require("mongoose");
 

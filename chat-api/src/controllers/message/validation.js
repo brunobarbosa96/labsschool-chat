@@ -9,6 +9,4 @@ const storeValidation = Yup.object().shape({
         .required()
 });
 
-module.exports = {
-    store: storeValidation
-};
+module.exports = storeValidation;

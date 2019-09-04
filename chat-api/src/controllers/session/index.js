@@ -1,5 +1,5 @@
 const Session = require("../../schemas/Session");
-const { storeValidation } = require("./validation");
+const storeValidation = require("./validation");
 
 class SessionController {
     async index(_, res) {
