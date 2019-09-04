@@ -1,0 +1,24 @@
+{
+    "name": "chat-api",
+    "version": "1.0.0",
+    "description": "Api de um chat para exemplo para o curso de react-modulo I em SP (LabsSchool).",
+    "main": "src/server.js",
+    "author": "Bruno Barbosa",
+    "license": "MIT",
+    "scripts": {
+        "start": "yarn sucrase-node ./scr/server.js",
+        "dev": "nodemon src/server.js"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.1",
+        "sucrase": "^3.10.1",
+        "youch": "^2.0.10"
+    },
+    "dependencies": {
+        "dotenv": "^8.1.0",
+        "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
+        "mongoose": "^5.6.11",
+        "yup": "^0.27.0"
+    }
+}
