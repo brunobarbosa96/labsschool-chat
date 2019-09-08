@@ -9,7 +9,7 @@ class MessageController {
             .sort({ createdAt: "desc" })
             .limit(30);
 
-        return res.json(messages);
+        return res.json(messages.reverse());
     }
 
     async store(req, res) {
