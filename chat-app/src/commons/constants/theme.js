@@ -6,12 +6,12 @@ const theme = createMuiTheme({
       level1: '#F4F4F4'
     },
     primary: {
-      main: '#0086FF'
+      main: '#3b5998'
     },
     secondary: {
-      main: '#59C00B',
-      light: '#86D14D',
-      dark: '#295805',
+      main: '#8b9dc3',
+      light: '#dfe3ee',
+      dark: '#f7f7f7',
       contrastText: '#FFF'
     },
     error: {
