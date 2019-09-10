@@ -7,38 +7,44 @@ import Form from "../../components/Form";
 import SubmitButton from "../../components/SubmitButton";
 
 import { Loading, Owner, Messages } from "./styles";
+import api from "../../services/api";
+import socket from "../../services/socket";
 
 export default class Chat extends Component {
     state = {
         _id: "",
         name: "",
         content: "",
-        messages: [
-            {
-                _id: "5d767876adf6a2001709504c",
-                sessionId: "5d703dbd2a8fbf168e3f92a6",
-                content: "Testando aqui?",
-                userName: "Bruno Barbosa",
-                createdAt: "2019-09-09T16:06:14.924Z",
-                updatedAt: "2019-09-09T16:06:14.924Z",
-                __v: 0
-            },
-            {
-                _id: "5d767876adf6a2001709f04c",
-                sessionId: "5d703dbd2a8fbf168e3f92a6",
-                content: "Testando aqui também",
-                userName: "Bruno Barbosa",
-                createdAt: "2019-09-09T16:06:14.924Z",
-                updatedAt: "2019-09-09T16:06:14.924Z",
-                __v: 0
-            }
-        ],
+        messages: [],
         loading: false
     };
+
+    constructor(props) {
+        super(props);
+        const session = JSON.parse(localStorage.getItem("session"));
+        if (!session) {
+            this.props.history("/");
+        }
+    }
 
     componentDidMount() {
         const session = JSON.parse(localStorage.getItem("session"));
         this.setState({ ...session });
+        this.loadMessages();
+        this.connectSocket();
+    }
+
+    async loadMessages() {
+        this.setState({ loading: true });
+        const response = await api.get("/messages");
+        if (response)
+            this.setState({ messages: response.data, loading: false });
+    }
+
+    async connectSocket() {
+        socket.on("newMessage", message => {
+            this.setState({ messages: [...this.state.messages, message] });
+        });
     }
 
     handleInputChange = e => {
@@ -47,19 +53,23 @@ export default class Chat extends Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        this.setState({ loading: true });
-        //   const {content} = this.state;
+        const { content } = this.state;
 
-        // const response = await api.get(`/repos/${newRepo}`);
+        await api.post(`/messages`, {
+            content,
+            sessionId: this.state._id
+        });
 
-        this.setState({ content: "" });
+        this.setState({
+            content: ""
+        });
     };
 
     render() {
         const { _id, name, loading, messages, content } = this.state;
 
         if (loading) {
-            return <Loading>Carregando</Loading>;
+            return <Loading>Carregando...</Loading>;
         }
 
         return (
@@ -88,7 +98,7 @@ export default class Chat extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Enviar"
+                        placeholder="Escreva aqui sua mensagem"
                         value={content}
                         onChange={this.handleInputChange}
                     />
