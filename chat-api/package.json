@@ -17,7 +17,7 @@
         "dotenv": "^8.1.0",
         "express": "^4.17.1",
         "express-async-errors": "^3.1.1",
-        "mongoose": "^5.6.11",
+        "mongoose": "^5.7.5",
         "socket.io": "^2.2.0",
         "youch": "^2.0.10",
         "yup": "^0.27.0"
